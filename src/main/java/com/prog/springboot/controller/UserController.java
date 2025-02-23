@@ -2,25 +2,25 @@ package com.prog.springboot.controller;
 
 import com.prog.springboot.model.User;
 import com.prog.springboot.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import static lombok.AccessLevel.PRIVATE;
+
 
 @Controller
 @RequestMapping()
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserController {
 
-    private final UserService userService;
+    UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping()
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("users", userService.findAll());
         return "index";
@@ -43,7 +43,7 @@ public class UserController {
 
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam("id") int id) {
-        model.addAttribute("user", userService.findOne(id));
+        model.addAttribute("user", userService.findById(id));
         return "edit";
     }
 
