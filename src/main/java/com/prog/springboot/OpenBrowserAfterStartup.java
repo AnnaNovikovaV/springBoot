@@ -10,7 +10,7 @@ import java.io.IOException;
 @Component
 public class OpenBrowserAfterStartup implements ApplicationListener<ApplicationReadyEvent> {
 
-    @Value("${server.port:8081}")
+    @Value("${server.port:8080}")
     private String serverPort;
 
     @Override
